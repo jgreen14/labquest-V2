@@ -1,0 +1,56 @@
+LabQuest - A roguelike
+
+Setup
+------
+-You have purchased a building owned by a former mad scientist
+-You notice in the basement a secret door to a laboratory
+-The scientist was doing animal breeding and gene recombination experiments
+ for what could only be nefarious purposes
+-The only evidence in the lab of the animals are some preserved specimens in jars
+ and skeletons
+-There are also a number of notebooks and journals detailing how the scientist
+ carried out the experiments and their results
+-Upon further searching you notice that there is yet another secret door that leads
+ some dark stairs...
+
+So begins, LabQuest!
+
+Game Features
+--------------
+-A randomly generated laboratory and storage levels on each play
+-A random assortment of starting equipment (tools/weapons, chemicals, enzymes, etc...)
+-A random assortment of traps and materials and detection devices
+-A random assortment of notebook and journal entries, which provide some useful
+ hints for the experiments that will inevitably be carried out by the player
+    -The journal entries will essentially provide the information about what is required
+     for the endgame (e.g., replicating the scientist's final experiment)
+-Experimental equipment (gene sequencer, incubator, centrifuge, microscope, spectrometer, etc...)
+-Items that must be identified (by experimental implements or usage)
+-Random assortments of creatures for the 'storage' (i.e., dungeon) levels with random
+ creature combination characteristics
+-Randomly placed traps from the scientist (and previous owners)
+-Permadeath
+-Recombining the genes of creatures to create new ones
+-Using evolutionary algorithms to allow for the breeding of new creatures
+-Fast travel between the laboratory and previously visited storage levels
+
+Some Notes
+-----------
+-In a sense this game will be rogue with the fantasy setting replaced
+ by mad science (weapons will be tools, magic will be technology)
+-I am no expert on biology/chemistry so while some features might imply a need for
+ biology/chemistry knowledge that will all be faked
+-Much of the equipment/technology will be more science FICTION than science FACT
+-The focus will less on fighting creatures (which will not necessarily be
+ hostile), but on getting specimens for further experiments by detecting
+ creatures and using traps (Fighting will mainly be a last resort)
+-The class system will be broken down based on different ways of creating creatures
+ (e.g., recombining genes vs. breeding) and the preferred means of procuring
+ experimental materials (e.g., trapping vs. live tissue/blood samples vs. DNA samples)
+-If this idea actually comes together successfully I would like to add an 'Outside World'
+ where various characters may interact with you and your experiments and creatures might
+ help them solve their problems
+    -It would also provide a good place for your creatures to be set loose and
+     cause mayhem...
+    -Maybe the real endgame would involve either evilly releasing your abominations into
+     the world or nobly using them to further scientific advancement...

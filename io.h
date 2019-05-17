@@ -1,0 +1,36 @@
+#ifndef IO_H
+#define IO_H
+
+#include "labquest.h"
+
+using namespace std;
+
+class IO
+{
+	private:
+		string banner;
+		char input;
+		Coord* changeCoord();
+		void showInventoryScreen(Player*);
+		void showWieldScreen(Player*);
+		void showActivateScreen(Player*);
+		void showCombineScreen(Player*);
+		void showDropScreen(Player*, Level*);
+		void examineTile(Coord*, Level*);
+		void fastMove(Player*, Level*);
+
+    public:
+        IO();
+		void drawBorder();
+        void showLevel(Level*);
+		void showAgent(Agent*);
+		void printBanner();
+		void printStats(Player*);
+        void close();
+		void processInput(Player*, Level*);
+		void readInput();
+		char getInput();
+		bool halt();
+};//Output class
+
+#endif
