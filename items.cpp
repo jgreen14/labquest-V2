@@ -221,6 +221,8 @@ string MouseTrap::spring(Creature* creature, Level* level)
 	//{
 		level->removeCreature(creature);
 	//}//if
+
+		return "Trap sprung!";
 }//spring
 
 string MouseTrap::getName()

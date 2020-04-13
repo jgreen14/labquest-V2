@@ -76,17 +76,17 @@ string Level::getTileInfo(Coord* position)
 void Level::generateLevel(Level* prevLevel)
 {
     int i, y, x, width, height, stairsUpRoom, stairsDownRoom; //, monX, monY, itemX, itemY, items, monsters;
-    int numRooms = 9;
+    const int numRooms = 9;
 	Room* rooms[numRooms];
 
 	if (levelNum == 0)
 		stairsUpRoom = rand()%numRooms;
-	//else
-    //		upStairs = prevLevel->getDownStairsCoord();
+	else
+    	stairsUpRoom = 0;
 
 	do
 	{
-		stairsDownRoom = rand()%9;
+		stairsDownRoom = rand()%8+1;
 	}
 	while (stairsDownRoom == stairsUpRoom);
 

@@ -1,6 +1,5 @@
 #include <iostream>
 #include <time.h>
-#include <ncurses.h>
 
 #include "labquest.h"
 #include "list.h"
@@ -11,7 +10,7 @@
 #include "level.h"
 #include "player.h"
 #include "creature.h"
-#include "io.h"
+// #include "io.h"
 
 using namespace std;
 
@@ -35,7 +34,7 @@ int main()
 {
 	int itemCount = 0;
     List* allItems = new List();
-	IO* io = new IO();
+	// IO* io = new IO();
 	//Player* player = new Player(1, 1, 1, "Jeff", new Coord(0, 0), '@', "Novice");
 	Creature* creature = new Creature(1, 1, 1, "Rat", new Coord(1, 20), 'r', RODENT);
     Level* level0 = new Level(0);
@@ -51,7 +50,10 @@ int main()
 	//level->addCreature(creature);
 	player->addItem(((Item*)allItems->getPosition(0))->itemFactory());
 
-	while (!io->halt())
+	cout << "Player name: " << player->getName() << endl;
+	cout << "Item count: " << allItems->getCount() << endl;
+
+	/* while (!io->halt())
 	{
 		io->processInput(player, level0);
 		creature->move(level0);
@@ -65,7 +67,7 @@ int main()
 		io->readInput();
 	}//while
     
-    io->close();
+    io->close(); */
 
     return 0;
 }//main
