@@ -4,28 +4,22 @@
 #include "level.h"
 #include "player.h"
 #include "creature.h"
-#include <ncurses.h>
 
 /*** IO CLASS ***/
 IO::IO()
 {
-	initscr();
-	curs_set(0);
-	clear();
-	noecho();
-	cbreak();
-	keypad(stdscr, TRUE);
+	TCODConsole::initRoot(LEVELWIDTH, LEVELHEIGHT, "labquest", false);
 	this->banner = "";
-	this->input = 0;
+	// this->input = 0;
 }//Output
 
 void IO::drawBorder()
 {
 	int i, j;
 
-	for (i = 0; i < LEVELHEIGHT+2; i++)
-		for (j = 0; j < LEVELWIDTH+2; j++)
-			mvaddch(i+1, j, '*');
+	for (i = 0; i < LEVELHEIGHT + 2; i++)
+		for (j = 0; j < LEVELWIDTH + 2; j++)
+			TCODConsole::root->putChar(i + 1, j, '*');
 }//drawBorder
 
 void IO::showLevel(Level* level)
@@ -46,52 +40,52 @@ void IO::showLevel(Level* level)
 				//showAgent(level->getCreature(i, j));
 			}//if
 			else if (level->isMapped(i, j) && level->getItem(i, j) != NULL)
-				mvaddch(pos->getY(), pos->getX(), level->getItem(i, j)->getSymbol());
+				TCODConsole::root->putChar(pos->getY(), pos->getX(), level->getItem(i, j)->getSymbol());
 			else if (level->isMapped(i, j))
 			{
 				switch(level->getType(i, j))
 				{
 					case VWALL:
-						mvaddch(pos->getY(),pos->getX(),ACS_VLINE);
+						TCODConsole::root->putChar(pos->getY(),pos->getX(),'#');
 						break;
 					case HWALL:
-						mvaddch(pos->getY(),pos->getX(),ACS_HLINE);
+						TCODConsole::root->putChar(pos->getY(),pos->getX(), '#');
 						break;
 					case ULCORNER:
-						mvaddch(pos->getY(),pos->getX(),ACS_ULCORNER);
+						TCODConsole::root->putChar(pos->getY(),pos->getX(), '#');
 						break;
 					case URCORNER:
-						mvaddch(pos->getY(),pos->getX(),ACS_URCORNER);
+						TCODConsole::root->putChar(pos->getY(),pos->getX(), '#');
 						break;
 					case LLCORNER:
-						mvaddch(pos->getY(),pos->getX(),ACS_LLCORNER);
+						TCODConsole::root->putChar(pos->getY(),pos->getX(), '#');
 						break;
 					case LRCORNER:
-						mvaddch(pos->getY(),pos->getX(),ACS_LRCORNER);
+						TCODConsole::root->putChar(pos->getY(),pos->getX(), '#');
 						break;
 					case CORRIDOR:
-						mvaddch(pos->getY(),pos->getX(),ACS_BLOCK);
+						TCODConsole::root->putChar(pos->getY(),pos->getX(), '#');
 						break;
 					case FLOOR:
-						mvaddch(pos->getY(),pos->getX(),'.');
+						TCODConsole::root->putChar(pos->getY(),pos->getX(),'.');
 						break;
 					case WATER:
-						mvaddch(pos->getY(),pos->getX(),'~');
+						TCODConsole::root->putChar(pos->getY(),pos->getX(),'~');
 						break;
                     case UPSTAIRS:
-						mvaddch(pos->getY(),pos->getX(),'<');
+						TCODConsole::root->putChar(pos->getY(),pos->getX(),'<');
 						break;
                     case DOWNSTAIRS:
-						mvaddch(pos->getY(),pos->getX(),'>');
+						TCODConsole::root->putChar(pos->getY(),pos->getX(),'>');
 						break;
 					default:
-						mvaddch(pos->getY(),pos->getX(),'?');
+						TCODConsole::root->putChar(pos->getY(),pos->getX(),'?');
 						break;
 				}//switch
 
 			}//else if
 			else
-				mvaddch(pos->getY(),pos->getX(),' ');
+				TCODConsole::root->putChar(pos->getY(),pos->getX(),' ');
 		}//for
 
 	delete pos;
@@ -102,9 +96,10 @@ void IO::showAgent(Agent* agent)
 	int y = agent->getPosition()->getY();
 	int x = agent->getPosition()->getX();
 
-	mvaddch(y+2, x+1, agent->getSymbol());
+	TCODConsole::root->putChar(y+2, x+1, agent->getSymbol());
 }//showAgent
 
+/*
 void IO::showInventoryScreen(Player* player)
 {
 	int i;
@@ -130,7 +125,9 @@ void IO::showInventoryScreen(Player* player)
 
 	clear();
 }//showInventoryScreen
+*/
 
+/*
 void IO::showActivateScreen(Player* player)
 {
 	int i;
@@ -151,7 +148,9 @@ void IO::showActivateScreen(Player* player)
 
 	clear();
 }//showActivateScreen
+*/
 
+/*
 void IO::showCombineScreen(Player* player)
 {
 	int i, count = 0;
@@ -200,7 +199,9 @@ void IO::showCombineScreen(Player* player)
 
 	clear();
 }//showCombineScreen
+*/
 
+/*
 void IO::showWieldScreen(Player* player)
 {
 	int i;
@@ -226,7 +227,9 @@ void IO::showWieldScreen(Player* player)
 
 	clear();
 }//showWieldScreen
+*/
 
+/*
 void IO::showDropScreen(Player* player, Level* level)
 {
 	int i;
@@ -246,7 +249,9 @@ void IO::showDropScreen(Player* player, Level* level)
 
 	clear();
 }//showScreen
+*/
 
+/*
 void IO::examineTile(Coord* position, Level* level)
 {
 	Coord* newCoord;
@@ -264,32 +269,32 @@ void IO::examineTile(Coord* position, Level* level)
 
 	clear();
 }//examineTile
+*/
 
 void IO::printBanner()
 {
-	mvprintw(0,0, "                                                                                ");
-	mvprintw(0,0, banner.c_str());
+	TCODConsole::root->print(0, 0, "                                                                                ");
+	TCODConsole::root->print(0, 0, banner);
 }//printBanner
 
 void IO::printStats(Player* player)
 {
 	string stats = player->getName() + " the " + player->getTitle() + " Str:" + (char)(player->getStr()+48) + " Dex:" + (char)(player->getDex()+48) + " Per:" + (char)(player->getPer()+48) + " Items:" + (char)(player->getItemCount()+48);
 
-	mvprintw(24, 0, stats.c_str());
+	TCODConsole::root->print(24, 0, stats.c_str());
 }//printStats
 
 void IO::close()
 {
-	curs_set(1);
-	echo();
-	endwin();
+	
 }//close
 
 void IO::readInput()
 {
-	this->input = getch();
+	TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &this->input, NULL);;
 }//readInput
 
+/*
 void IO::fastMove(Player* player, Level* level)
 {
 	bool stop = false;
@@ -306,12 +311,13 @@ void IO::fastMove(Player* player, Level* level)
 	}//while
 	nodelay(stdscr, FALSE);
 }//fastMove
+*/
 
 void IO::processInput(Player* player, Level* level)
 {
 	banner = "";
 
-	switch(this->input)
+	switch(this->input.c)
 	{
 		case 'h':
 		case 'j':
@@ -323,7 +329,7 @@ void IO::processInput(Player* player, Level* level)
 		case 'n':
 			player->move(changeCoord(), level, &banner);
 			break;
-		case 'H':
+		/*case 'H':
 		case 'J':
 		case 'K':
 		case 'L':
@@ -332,12 +338,12 @@ void IO::processInput(Player* player, Level* level)
 		case 'B':
 		case 'N':
 			fastMove(player, level);
-			break;
+			break;*/
 		case ',':
 			if (player->addItem(level->itemPickup(player->getPosition())))
 				banner = "Picked up " + player->getItem(player->getItemCount()-1)->getName() + ".";
 			break;
-		case 'd':
+		/*case 'd':
 			showDropScreen(player, level);
 			break;
 		case 'i':
@@ -355,7 +361,7 @@ void IO::processInput(Player* player, Level* level)
 		case 'x':
 		case ';':
 			examineTile(player->getPosition(), level);
-			break;
+			break;*/
 		default:
 			break;
 	}//switch
@@ -366,7 +372,7 @@ Coord* IO::changeCoord()
 {
 	Coord* change = new Coord(0, 0);
 
-	switch (input)
+	switch (this->input.c)
 	{
 		case 'h':
 		case 'H':
@@ -413,15 +419,20 @@ Coord* IO::changeCoord()
 
 char IO::getInput()
 {
-	return input;
+	return this->input.c;
 }//getInput
 
 bool IO::halt()
 {
-	if (this->input == 'q')
+	if (this->input.c == 'q' || TCODConsole::isWindowClosed())
 		return true;
 	else
 		return false;
 }//halt
+
+void IO::refresh()
+{
+	TCODConsole::flush();
+}
 
 /*** END IO CLASS ***/

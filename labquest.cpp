@@ -10,7 +10,7 @@
 #include "level.h"
 #include "player.h"
 #include "creature.h"
-// #include "io.h"
+#include "io.h"
 
 using namespace std;
 
@@ -34,7 +34,7 @@ int main()
 {
 	int itemCount = 0;
     List* allItems = new List();
-	// IO* io = new IO();
+	IO* io = new IO();
 	//Player* player = new Player(1, 1, 1, "Jeff", new Coord(0, 0), '@', "Novice");
 	Creature* creature = new Creature(1, 1, 1, "Rat", new Coord(1, 20), 'r', RODENT);
     Level* level0 = new Level(0);
@@ -53,21 +53,32 @@ int main()
 	cout << "Player name: " << player->getName() << endl;
 	cout << "Item count: " << allItems->getCount() << endl;
 
-	/* while (!io->halt())
+	/* while (!TCODConsole::isWindowClosed()) {
+		TCOD_key_t key;
+		TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL);
+		if (key.c == 'f')
+			TCODConsole::setFullscreen(!TCODConsole::isFullscreen());
+		TCODConsole::root->clear();
+		TCODConsole::root->putChar(40, 25, '@');
+		TCODConsole::flush();
+	} */
+	
+	io->readInput();
+	while (!io->halt())
 	{
-		io->processInput(player, level0);
-		creature->move(level0);
-		io->printBanner();
+		// io->processInput(player, level0);
+		// creature->move(level0);
+		// io->printBanner();
 		io->drawBorder();
-		io->showLevel(level0);
-		io->showAgent(player);
-		io->printStats(player);
-		refresh();
+		// io->showLevel(level0);
+		// io->showAgent(player);
+		// io->printStats(player);
+		io->refresh();
 
 		io->readInput();
 	}//while
     
-    io->close(); */
+    io->close();
 
     return 0;
 }//main

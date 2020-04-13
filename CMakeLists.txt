@@ -8,8 +8,10 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # add the executable
-add_executable(labquest labquest.cpp "node.cpp" "list.cpp" "coord.cpp" "items.cpp" "tiles.cpp" "room.cpp" "level.cpp" "agent.cpp" "player.cpp" "creature.cpp")
+add_executable(labquest labquest.cpp "node.cpp" "list.cpp" "coord.cpp" "items.cpp" "tiles.cpp" "room.cpp" "level.cpp" "agent.cpp" "player.cpp" "creature.cpp" "io.cpp")
 
 target_include_directories(labquest PUBLIC
                            "${PROJECT_BINARY_DIR}"
+                           "c:/dev/include"
                            )
+target_link_libraries(labquest "c:/dev/libtcod/libtcod.lib")
