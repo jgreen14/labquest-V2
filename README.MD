@@ -2,4 +2,4 @@
 
 Labquest updated with some help from rogueish.
 
-Still uses ncurses for console output.
+Uses libTCOD for console I/O.
