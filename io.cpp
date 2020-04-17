@@ -272,7 +272,7 @@ void IO::printStats(Player* player)
 {
 	string stats = player->getName() + " the " + player->getTitle() + " Str:" + (char)(player->getStr()+48) + " Dex:" + (char)(player->getDex()+48) + " Per:" + (char)(player->getPer()+48) + " Items:" + (char)(player->getItemCount()+48);
 
-	TCODConsole::root->print(24, 0, stats.c_str());
+	TCODConsole::root->print(0, 24, stats.c_str());
 }//printStats
 
 void IO::close()

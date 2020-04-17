@@ -72,7 +72,7 @@ int main()
 		io->drawBorder();
 		io->showLevel(level0);
 		io->showAgent(player);
-		// io->printStats(player);
+		io->printStats(player);
 		io->refresh();
 
 		io->readInput();
