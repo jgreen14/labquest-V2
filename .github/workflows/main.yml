@@ -31,3 +31,7 @@ jobs:
         cmakeListsTxtPath: ${{ github.workspace }}/CMakeLists.txt
         # Path to CMakeSettings.json. Used for CMakeSettingsJson mode.
         cmakeSettingsJsonPath: ${{ github.workspace }}/CMakeSettings_GA.json
+    
+    - name: run-test-target
+      run: ${{ github.workspace }}/labquest_test
+    
