@@ -22,6 +22,9 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
+    - name: download libTCOD
+      run: wget https://github.com/libtcod/libtcod/releases/download/1.16.0-alpha.3/libtcod-1.16.0-alpha.3-x86_64-mingw.zip -O ${{ github.workspace }}/libtcod.zip
+      
     - name: run-cmake
       uses: lukka/run-cmake@v2.0
       with:
