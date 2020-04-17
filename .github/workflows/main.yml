@@ -33,7 +33,7 @@ jobs:
         cmakeSettingsJsonPath: ${{ github.workspace }}/CMakeSettings_GA.json
     
     - name: list dirs
-      run: ls
+      run: ls ${{ github.workspace }}
 
     - name: run-test-target
       run: labquest_test
