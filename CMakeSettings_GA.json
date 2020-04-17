@@ -17,8 +17,8 @@
           "type": "PATH"
         },
         {
-          "name": "LIBTCOD_LIB_DIR",
-          "value": "libtcod-1.16.0-alpha.3-x86_64-mingw",
+          "name": "LIBTCOD_LIB",
+          "value": "libtcod-1.16.0-alpha.3-x86_64-mingw/libtcod.a",
           "type": "PATH"
         }
       ]

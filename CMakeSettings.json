@@ -17,8 +17,8 @@
           "type": "PATH"
         },
         {
-          "name": "LIBTCOD_LIB_DIR",
-          "value": "C:/dev/libtcod",
+          "name": "LIBTCOD_LIB",
+          "value": "C:/dev/libtcod/libtcod.lib",
           "type": "PATH"
         }
       ]
