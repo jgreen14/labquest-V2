@@ -8,18 +8,21 @@
 /*** IO CLASS ***/
 IO::IO()
 {
-	TCODConsole::initRoot(LEVELWIDTH, LEVELHEIGHT, "labquest", false);
+	TCODConsole::initRoot(LEVELWIDTH+2, LEVELHEIGHT+4, "labquest", false);
 	this->banner = "";
 	// this->input = 0;
 }//Output
 
 void IO::drawBorder()
 {
-	int i, j;
-
-	for (i = 0; i < LEVELHEIGHT + 2; i++)
-		for (j = 0; j < LEVELWIDTH + 2; j++)
-			TCODConsole::root->putChar(i + 1, j, '*');
+	TCODConsole::root->hline(1, 0, LEVELWIDTH, TCOD_BKGND_NONE);
+	TCODConsole::root->hline(1, LEVELHEIGHT+1, LEVELWIDTH, TCOD_BKGND_NONE);
+	TCODConsole::root->vline(0, 1, LEVELHEIGHT, TCOD_BKGND_NONE);
+	TCODConsole::root->vline(LEVELWIDTH+1, 1, LEVELHEIGHT, TCOD_BKGND_NONE);
+	TCODConsole::root->putChar(0, 0, '+');
+	TCODConsole::root->putChar(LEVELWIDTH + 1, 0, '+');
+	TCODConsole::root->putChar(0, LEVELHEIGHT + 1, '+');
+	TCODConsole::root->putChar(LEVELWIDTH + 1, LEVELHEIGHT + 1, '+');
 }//drawBorder
 
 void IO::showLevel(Level* level)
