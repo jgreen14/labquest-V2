@@ -68,7 +68,7 @@ int main()
 	{
 		// io->processInput(player, level0);
 		// creature->move(level0);
-		// io->printBanner();
+		io->printBanner();
 		io->drawBorder();
 		io->showLevel(level0);
 		io->showAgent(player);
