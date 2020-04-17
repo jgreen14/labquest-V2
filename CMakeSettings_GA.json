@@ -9,19 +9,7 @@
       "installRoot": "${projectDir}\\out\\install\\${name}",
       "cmakeCommandArgs": "",
       "buildCommandArgs": "-v",
-      "ctestCommandArgs": "",
-      "variables": [
-        {
-          "name": "LIBTCOD_INCLUDE_DIR",
-          "value": "libtcod-1.16.0-alpha.3-x86_64-mingw/include",
-          "type": "PATH"
-        },
-        {
-          "name": "LIBTCOD_LIB",
-          "value": "libtcod-1.16.0-alpha.3-x86_64-mingw/libtcod.a",
-          "type": "PATH"
-        }
-      ]
+      "ctestCommandArgs": ""
     }
   ]
 }

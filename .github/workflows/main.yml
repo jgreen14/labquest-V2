@@ -21,12 +21,6 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-
-    - name: download libTCOD
-      run: wget http://launchpadlibrarian.net/350686578/libtcod-dev_1.6.4+dfsg-2_amd64.deb -O ${{ github.workspace }}/libtcod.deb
-      
-    - name: install libTCOD deb
-      run: sudo apt install ${{ github.workspace }}/libtcod.deb
       
     - name: run-cmake
       uses: lukka/run-cmake@v2.0
@@ -34,6 +28,6 @@ jobs:
         # Select the mode of the action. There are three different modes: CMakeListsTxtBasic: Run CMake using a CMakeLists.txt - Basic configuration, CMakeListsTxtAdvanced: Run CMake using a CMakeLists.txt - Advanced configuration, CMakeSettingsJson: Run CMake using a CMakeSettings.json of Visual Studio.
         cmakeListsOrSettingsJson: CMakeSettingsJson
         # Path to CMakeLists.txt. Used for both CMakeListsTxtBasic and CMakeListsTxtAdvanced modes.
-        cmakeListsTxtPath: ${{ github.workspace }}/CMakeLists.txt
+        cmakeListsTxtPath: ${{ github.workspace }}/CMakeLists_GA.txt
         # Path to CMakeSettings.json. Used for CMakeSettingsJson mode.
         cmakeSettingsJsonPath: ${{ github.workspace }}/CMakeSettings_GA.json
