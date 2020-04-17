@@ -26,7 +26,7 @@ jobs:
       run: wget https://github.com/libtcod/libtcod/releases/download/1.16.0-alpha.3/libtcod-1.16.0-alpha.3-x86_64-mingw.zip -O ${{ github.workspace }}/libtcod.zip
       
     - name: extract libTCOD
-      run: unzip ${{ github.workspace }}/libtcod.zip -d ${{ github.workspace }}/libtcod
+      run: unzip ${{ github.workspace }}/libtcod.zip
       
     - name: run-cmake
       uses: lukka/run-cmake@v2.0
