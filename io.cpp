@@ -31,64 +31,52 @@ void IO::showLevel(Level* level)
 	Creature* creature;
 	int i, j;
 
-	for (i = 0; i < LEVELHEIGHT; i++)
-		for (j = 0; j < LEVELWIDTH; j++)
+	for (i = 0; i < LEVELWIDTH; i++)
+		for (j = 0; j < LEVELHEIGHT; j++)
 		{
-			pos = new Coord(i+2, j+1);
+			pos = new Coord(j+1, i+1);
 
-			if (level->isVisible(i, j) && (creature = level->getCreature(i, j)) != NULL)
+			if (level->isVisible(j, i) && (creature = level->getCreature(j, i)) != NULL)
 			{
 				showAgent(creature);
 				//level->getCreature(i, j)->move(level);
 				//showAgent(level->getCreature(i, j));
 			}//if
-			else if (level->isMapped(i, j) && level->getItem(i, j) != NULL)
-				TCODConsole::root->putChar(pos->getY(), pos->getX(), level->getItem(i, j)->getSymbol());
-			else if (level->isMapped(i, j))
+			else if (level->isMapped(j, i) && level->getItem(j, i) != NULL)
+				TCODConsole::root->putChar(pos->getX(), pos->getY(), level->getItem(j, i)->getSymbol());
+			else if (level->isMapped(j, i))
 			{
-				switch(level->getType(i, j))
+				switch(level->getType(j, i))
 				{
 					case VWALL:
-						TCODConsole::root->putChar(pos->getY(),pos->getX(),'#');
-						break;
 					case HWALL:
-						TCODConsole::root->putChar(pos->getY(),pos->getX(), '#');
-						break;
 					case ULCORNER:
-						TCODConsole::root->putChar(pos->getY(),pos->getX(), '#');
-						break;
 					case URCORNER:
-						TCODConsole::root->putChar(pos->getY(),pos->getX(), '#');
-						break;
 					case LLCORNER:
-						TCODConsole::root->putChar(pos->getY(),pos->getX(), '#');
-						break;
 					case LRCORNER:
-						TCODConsole::root->putChar(pos->getY(),pos->getX(), '#');
-						break;
 					case CORRIDOR:
-						TCODConsole::root->putChar(pos->getY(),pos->getX(), '#');
+						TCODConsole::root->putChar(pos->getX(),pos->getY(), '#');
 						break;
 					case FLOOR:
-						TCODConsole::root->putChar(pos->getY(),pos->getX(),'.');
+						TCODConsole::root->putChar(pos->getX(),pos->getY(),'.');
 						break;
 					case WATER:
-						TCODConsole::root->putChar(pos->getY(),pos->getX(),'~');
+						TCODConsole::root->putChar(pos->getX(),pos->getY(),'~');
 						break;
                     case UPSTAIRS:
-						TCODConsole::root->putChar(pos->getY(),pos->getX(),'<');
+						TCODConsole::root->putChar(pos->getX(),pos->getY(),'<');
 						break;
                     case DOWNSTAIRS:
-						TCODConsole::root->putChar(pos->getY(),pos->getX(),'>');
+						TCODConsole::root->putChar(pos->getX(),pos->getY(),'>');
 						break;
 					default:
-						TCODConsole::root->putChar(pos->getY(),pos->getX(),'?');
+						TCODConsole::root->putChar(pos->getX(),pos->getY(),'?');
 						break;
 				}//switch
 
 			}//else if
 			else
-				TCODConsole::root->putChar(pos->getY(),pos->getX(),' ');
+				TCODConsole::root->putChar(pos->getX(),pos->getY(),' ');
 		}//for
 
 	delete pos;
@@ -99,7 +87,7 @@ void IO::showAgent(Agent* agent)
 	int y = agent->getPosition()->getY();
 	int x = agent->getPosition()->getX();
 
-	TCODConsole::root->putChar(y+2, x+1, agent->getSymbol());
+	TCODConsole::root->putChar(x+1, y+1, agent->getSymbol());
 }//showAgent
 
 /*
