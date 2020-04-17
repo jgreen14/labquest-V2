@@ -24,6 +24,6 @@ endif()
 # add test executable
 add_executable(labquest_test labquest_test.cpp "node.cpp" "list.cpp" "coord.cpp" "items.cpp" "tiles.cpp" "room.cpp" "level.cpp" "agent.cpp" "player.cpp" "creature.cpp")
 
-target_include_directories(labquest PUBLIC
+target_include_directories(labquest_test PUBLIC
                            "${PROJECT_BINARY_DIR}"
                            )
