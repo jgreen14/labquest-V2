@@ -15,6 +15,17 @@ const int INVENTORYSIZE = 50;
 
 typedef enum
 {
+	WAIT,
+	MOVE,
+	PICKUP,
+	DROP,
+	INVENTORY,
+	NEXTLEVEL,
+	PREVLEVEL
+} GameState;
+
+typedef enum
+{
 	UNDEFINED = -1,
 	WEAPON,
 	TRAP,

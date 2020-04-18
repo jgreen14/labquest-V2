@@ -310,8 +310,10 @@ void IO::fastMove(Player* player, Level* level)
 }//fastMove
 */
 
-void IO::processInput(Player* player, Level* level)
+GameState IO::processInput(Player* player, Level* level)
 {
+	GameState state = WAIT;
+
 	this->banner = "";
 
 	switch(this->input.c)
@@ -325,6 +327,13 @@ void IO::processInput(Player* player, Level* level)
 		case 'b':
 		case 'n':
 			player->move(changeCoord(), level, &this->banner);
+			state = MOVE;
+			break;
+		case 'x':
+			state = NEXTLEVEL;
+			break;
+		case 'z':
+			state = PREVLEVEL;
 			break;
 		/*case 'H':
 		case 'J':
@@ -339,6 +348,7 @@ void IO::processInput(Player* player, Level* level)
 		case ',':
 			if (player->addItem(level->itemPickup(player->getPosition())))
 				this->banner = "Picked up " + player->getItem(player->getItemCount()-1)->getName() + ".";
+			state = PICKUP;
 			break;
 		/*case 'd':
 			showDropScreen(player, level);
@@ -363,6 +373,7 @@ void IO::processInput(Player* player, Level* level)
 			break;
 	}//switch
 
+	return state;
 }//processInput
 
 Coord* IO::changeCoord()

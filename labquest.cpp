@@ -40,7 +40,8 @@ int main()
 	Creature* creature;
 	Level* currLevel = (Level*)allLevels->getHead();
 	Level* prevLevel = NULL;
-	
+	GameState currState = WAIT;
+
 	srand(time(NULL));
 
 	itemCount = populateItems(allItems);
@@ -83,7 +84,31 @@ int main()
 		io->refresh();
 
 		io->readInput(true);
-		io->processInput(player, currLevel);
+		currState = io->processInput(player, currLevel);
+		// Game logic should be moved to it's own class
+		switch (currState) 
+		{
+			// **Should have a changeLevel method that does more checks and setup
+			case NEXTLEVEL:
+				if (currLevel->getDownStairsCoord()->equal(player->getPosition()) && currLevel->getNext() != NULL)
+				{
+					prevLevel = currLevel;
+					currLevel = (Level*)currLevel->getNext();
+					player->updateLOS(currLevel, false);
+				} // if
+				break;
+			case PREVLEVEL:
+				if (currLevel->getUpStairsCoord()->equal(player->getPosition()) && prevLevel != NULL)
+				{
+					// **Could have a list of visited levels to make this easier
+					currLevel = prevLevel;
+					prevLevel = (Level*)allLevels->getPosition(currLevel->getValue() - 1);
+					player->updateLOS(currLevel, false);
+				} // if
+				break;
+			default:
+				break;
+		}
 
 		// Need an updateLevel function that does all creature/object moves
 		// creature->move(currLevel);
