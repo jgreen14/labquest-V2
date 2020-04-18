@@ -29,7 +29,7 @@ class IO
 		void printStats(Player*);
         void close();
 		void processInput(Player*, Level*);
-		void readInput();
+		void readInput(bool);
 		char getInput();
 		bool halt();
 		void refresh();

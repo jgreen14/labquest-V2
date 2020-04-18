@@ -47,7 +47,7 @@ int main()
     level0->generateLevel(NULL);
     level1->generateLevel(level0);
 	Player* player = new Player(1, 1, 1, "Jeff", level0->getUpStairsCoord(), '@', "Novice");
-	//level->addCreature(creature);
+	level0->addCreature(creature);
 	player->addItem(((Item*)allItems->getPosition(0))->itemFactory());
 
 	cout << "Player name: " << player->getName() << endl;
@@ -66,11 +66,11 @@ int main()
 	// Update LOS before start so player's starting view is shown
 	player->updateLOS(level0, false);
 
-	io->readInput();
+	io->readInput(false);
 	while (!io->halt())
 	{
 		io->processInput(player, level0);
-		// creature->move(level0);
+		creature->move(level0);
 		io->printBanner();
 		io->drawBorder();
 		io->showLevel(level0);
@@ -78,7 +78,7 @@ int main()
 		io->printStats(player);
 		io->refresh();
 
-		io->readInput();
+		io->readInput(true);
 	}//while
     
     io->close();

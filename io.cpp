@@ -279,9 +279,12 @@ void IO::close()
 	
 }//close
 
-void IO::readInput()
+void IO::readInput(bool wait)
 {
-	TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &this->input, NULL);;
+	if (wait)
+		TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &this->input, NULL, false);
+	else
+		TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &this->input, NULL);
 }//readInput
 
 /*
