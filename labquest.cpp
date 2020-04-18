@@ -35,7 +35,6 @@ int main()
 	int itemCount = 0;
     List* allItems = new List();
 	IO* io = new IO();
-	//Player* player = new Player(1, 1, 1, "Jeff", new Coord(0, 0), '@', "Novice");
 	Creature* creature = new Creature(1, 1, 1, "Rat", new Coord(1, 20), 'r', RODENT);
     Level* level0 = new Level(0);
     Level* level1 = new Level(1);
@@ -43,7 +42,6 @@ int main()
 	srand(time(NULL));
 
 	itemCount = populateItems(allItems);
-	//level->generateLab(allItems, itemCount);
     level0->generateLevel(NULL);
     level1->generateLevel(level0);
 	Player* player = new Player(1, 1, 1, "Jeff", level0->getUpStairsCoord(), '@', "Novice");
@@ -52,33 +50,22 @@ int main()
 
 	cout << "Player name: " << player->getName() << endl;
 	cout << "Item count: " << allItems->getCount() << endl;
-
-	/* while (!TCODConsole::isWindowClosed()) {
-		TCOD_key_t key;
-		TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL);
-		if (key.c == 'f')
-			TCODConsole::setFullscreen(!TCODConsole::isFullscreen());
-		TCODConsole::root->clear();
-		TCODConsole::root->putChar(40, 25, '@');
-		TCODConsole::flush();
-	} */
 	
 	// Update LOS before start so player's starting view is shown
 	player->updateLOS(level0, false);
 
-	io->readInput(false);
 	while (!io->halt())
 	{
-		io->processInput(player, level0);
-		creature->move(level0);
-		io->printBanner();
 		io->drawBorder();
 		io->showLevel(level0);
 		io->showAgent(player);
+		io->printBanner();
 		io->printStats(player);
 		io->refresh();
 
 		io->readInput(true);
+		io->processInput(player, level0);
+		creature->move(level0);
 	}//while
     
     io->close();
