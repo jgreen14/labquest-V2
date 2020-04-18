@@ -25,6 +25,7 @@ class IO
 		void drawBorder();
         void showLevel(Level*);
 		void showAgent(Agent*);
+		void clearBanner();
 		void printBanner();
 		void printStats(Player*);
         void close();

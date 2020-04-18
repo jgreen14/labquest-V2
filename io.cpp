@@ -261,9 +261,13 @@ void IO::examineTile(Coord* position, Level* level)
 }//examineTile
 */
 
-void IO::printBanner()
+void IO::clearBanner()
 {
-	TCODConsole::root->print(0, LEVELHEIGHT+2, "                                                                                ");
+	TCODConsole::root->print(0, LEVELHEIGHT + 2, "                                                                                ");
+}
+
+void IO::printBanner()
+{	
 	TCODConsole::root->print(0, LEVELHEIGHT+2, this->banner.c_str());
 }//printBanner
 
