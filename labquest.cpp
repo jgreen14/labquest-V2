@@ -46,6 +46,7 @@ int main()
     level1->generateLevel(level0);
 	Player* player = new Player(1, 1, 1, "Jeff", level0->getUpStairsCoord(), '@', "Novice");
 	level0->addCreature(creature);
+	level0->addItem(new Coord(2, 25), ((Item*)allItems->getPosition(2))->itemFactory());
 	player->addItem(((Item*)allItems->getPosition(0))->itemFactory());
 
 	cout << "Player name: " << player->getName() << endl;
@@ -59,7 +60,7 @@ int main()
 		io->drawBorder();
 		io->showLevel(level0);
 		io->showAgent(player);
-		io->clearBanner();
+		// io->clearBanner();
 		io->printBanner();
 		io->printStats(player);
 		io->refresh();
