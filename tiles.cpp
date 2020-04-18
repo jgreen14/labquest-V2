@@ -11,7 +11,7 @@ Tile::Tile(TileType type)
 	mapped = false;
 	this->type = type;
     items = new List();
-	//creature = NULL;
+	creature = NULL;
 }//Tile;
 
 Item* Tile::takeItem()

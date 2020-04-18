@@ -36,11 +36,10 @@ void IO::showLevel(Level* level)
 		{
 			pos = new Coord(j+1, i+1);
 
-			if (level->isVisible(j, i) && (creature = level->getCreature(j, i)) != NULL)
+			creature = level->getCreature(j, i);
+			if (level->isVisible(j, i) && creature != NULL)
 			{
 				showAgent(creature);
-				//level->getCreature(i, j)->move(level);
-				//showAgent(level->getCreature(i, j));
 			}//if
 			else if (level->isMapped(j, i) && level->getItem(j, i) != NULL)
 				TCODConsole::root->putChar(pos->getX(), pos->getY(), level->getItem(j, i)->getSymbol());
@@ -77,9 +76,9 @@ void IO::showLevel(Level* level)
 			}//else if
 			else
 				TCODConsole::root->putChar(pos->getX(),pos->getY(),' ');
+			
+			delete pos;
 		}//for
-
-	delete pos;
 }//showLevel
 
 void IO::showAgent(Agent* agent)
@@ -306,7 +305,7 @@ void IO::fastMove(Player* player, Level* level)
 
 void IO::processInput(Player* player, Level* level)
 {
-	banner = "";
+	this->banner = "";
 
 	switch(this->input.c)
 	{
@@ -318,7 +317,7 @@ void IO::processInput(Player* player, Level* level)
 		case 'u':
 		case 'b':
 		case 'n':
-			player->move(changeCoord(), level, &banner);
+			player->move(changeCoord(), level, &this->banner);
 			break;
 		/*case 'H':
 		case 'J':
@@ -332,7 +331,7 @@ void IO::processInput(Player* player, Level* level)
 			break;*/
 		case ',':
 			if (player->addItem(level->itemPickup(player->getPosition())))
-				banner = "Picked up " + player->getItem(player->getItemCount()-1)->getName() + ".";
+				this->banner = "Picked up " + player->getItem(player->getItemCount()-1)->getName() + ".";
 			break;
 		/*case 'd':
 			showDropScreen(player, level);

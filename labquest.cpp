@@ -66,7 +66,7 @@ int main()
 	io->readInput();
 	while (!io->halt())
 	{
-		// io->processInput(player, level0);
+		io->processInput(player, level0);
 		// creature->move(level0);
 		io->printBanner();
 		io->drawBorder();
