@@ -2,10 +2,11 @@
 #define LEVEL_H
 
 #include "labquest.h"
+#include "node.h"
 
 using namespace std;
 
-class Level
+class Level : public Node
 {
     private:
         Tile* layout[LEVELHEIGHT][LEVELWIDTH];

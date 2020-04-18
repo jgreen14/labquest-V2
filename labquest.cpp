@@ -34,8 +34,11 @@ int main()
 {
 	int itemCount = 0;
     List* allItems = new List();
+	List* allLevels = new List();
 	IO* io = new IO();
 	Creature* creature = new Creature(1, 1, 1, "Rat", new Coord(1, 20), 'r', RODENT);
+	allLevels->push(new Level(0));
+	allLevels->push(new Level(1));
     Level* level0 = new Level(0);
     Level* level1 = new Level(1);
 

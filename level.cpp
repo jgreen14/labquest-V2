@@ -7,7 +7,7 @@
 #include "creature.h"
 
 /*** LEVEL CLASS ***/
-Level::Level(int number)
+Level::Level(int number) : Node(number)
 {
 	int i, j;
 	
