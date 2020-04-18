@@ -8,6 +8,7 @@
 #define LEVELWIDTH 78
 #define ITEMATTRIBS 10
 #define IDSIZE 3
+#define NUMLEVELS 20
 
 const int MAXITEMS = 100;
 const int INVENTORYSIZE = 50;

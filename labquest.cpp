@@ -32,36 +32,50 @@ int populateItems(List* items)
 
 int main()
 {
+	int i;
 	int itemCount = 0;
     List* allItems = new List();
 	List* allLevels = new List();
 	IO* io = new IO();
-	Creature* creature = new Creature(1, 1, 1, "Rat", new Coord(1, 20), 'r', RODENT);
-	allLevels->push(new Level(0));
-	allLevels->push(new Level(1));
-    Level* level0 = new Level(0);
-    Level* level1 = new Level(1);
-
+	Creature* creature;
+	Level* currLevel = (Level*)allLevels->getHead();
+	Level* prevLevel = NULL;
+	
 	srand(time(NULL));
 
 	itemCount = populateItems(allItems);
-    level0->generateLevel(NULL);
-    level1->generateLevel(level0);
-	Player* player = new Player(1, 1, 1, "Jeff", level0->getUpStairsCoord(), '@', "Novice");
-	level0->addCreature(creature);
-	level0->addItem(new Coord(2, 25), ((Item*)allItems->getPosition(2))->itemFactory());
-	player->addItem(((Item*)allItems->getPosition(0))->itemFactory());
 
-	cout << "Player name: " << player->getName() << endl;
-	cout << "Item count: " << allItems->getCount() << endl;
+	// Generate levels
+	for (i = 0; i < NUMLEVELS; i++) {
+		allLevels->push(new Level(i));
+		currLevel = (Level*)allLevels->getTail();
+		currLevel->generateLevel(prevLevel);
+		
+		// Add test creature and item to each level
+		// **Should have populateItems and populateCreatures functions
+		creature = new Creature(1, 1, 1, "Rat", new Coord(1, 20), 'r', RODENT);
+		currLevel->addCreature(creature);
+		currLevel->addItem(new Coord(2, 25), ((Item*)allItems->getPosition(2))->itemFactory());
+		
+		prevLevel = currLevel;
+	} // for
+
+	// Reset level pointers
+	// **This should be done in some sort of initGame function to handle loading save games too
+	currLevel = (Level*)allLevels->getHead();
+	prevLevel = NULL;
+
+	// Setup player and add test item
+	Player* player = new Player(1, 1, 1, "Jeff", currLevel->getUpStairsCoord(), '@', "Novice");
+	player->addItem(((Item*)allItems->getPosition(0))->itemFactory());
 	
 	// Update LOS before start so player's starting view is shown
-	player->updateLOS(level0, false);
+	player->updateLOS(currLevel, false);
 
 	while (!io->halt())
 	{
 		io->drawBorder();
-		io->showLevel(level0);
+		io->showLevel(currLevel);
 		io->showAgent(player);
 		// io->clearBanner();
 		io->printBanner();
@@ -69,8 +83,10 @@ int main()
 		io->refresh();
 
 		io->readInput(true);
-		io->processInput(player, level0);
-		creature->move(level0);
+		io->processInput(player, currLevel);
+
+		// Need an updateLevel function that does all creature/object moves
+		// creature->move(currLevel);
 	}//while
     
     io->close();
