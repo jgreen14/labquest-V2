@@ -63,6 +63,9 @@ int main()
 		TCODConsole::flush();
 	} */
 	
+	// Update LOS before start so player's starting view is shown
+	player->updateLOS(level0, false);
+
 	io->readInput();
 	while (!io->halt())
 	{
