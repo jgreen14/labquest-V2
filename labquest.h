@@ -4,14 +4,13 @@
 #include <string>
 #include <stdlib.h>
 
-#define LEVELHEIGHT 21
-#define LEVELWIDTH 78
-#define ITEMATTRIBS 10
-#define IDSIZE 3
-#define NUMLEVELS 20
-
-const int MAXITEMS = 100;
-const int INVENTORYSIZE = 50;
+constexpr int LEVELHEIGHT{ 21 };
+constexpr int LEVELWIDTH{ 78 };
+constexpr int ITEMATTRIBS{ 10 };
+constexpr int IDSIZE{ 3 };
+constexpr int NUMLEVELS{ 20 };
+constexpr int MAXITEMS{ 100 };
+constexpr int INVENTORYSIZE{ 50 };
 
 typedef enum
 {
