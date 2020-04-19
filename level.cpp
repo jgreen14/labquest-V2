@@ -13,7 +13,7 @@ Level::Level(int number) : Node(number)
 	
 	for (i = 0; i < LEVELHEIGHT; i++)
 		for (j = 0; j < LEVELWIDTH; j++)
-			layout[i][j] = new Tile(BEDROCK);
+			layout[i][j] = new Tile(TileType::BEDROCK);
 	
 	this->levelNum = number;
     this->upStairs = NULL;
@@ -26,33 +26,33 @@ string Level::getTileInfo(Coord* position)
 
 	switch (layout[position->getY()][position->getX()]->getType())
 	{
-		case VWALL:
-		case HWALL:
-		case ULCORNER:
-		case URCORNER:
-		case LLCORNER:
-		case LRCORNER:
+		case TileType::VWALL:
+		case TileType::HWALL:
+		case TileType::ULCORNER:
+		case TileType::URCORNER:
+		case TileType::LLCORNER:
+		case TileType::LRCORNER:
 			info += "A wall.";
 			break;
-		case FLOOR:
+		case TileType::FLOOR:
 			info += "The floor.";
 			break;
-		case BEDROCK:
+		case TileType::BEDROCK:
 			info += "Impenetrable rock.";
 			break;
-		case CORRIDOR:
+		case TileType::CORRIDOR:
 			info += "A rough corridor.";
 			break;
-		case WATER:
+		case TileType::WATER:
 			info += "Clear, calm water.";
 			break;
-		case ACID:
+		case TileType::ACID:
 			info += "Bubbling, smelly acid.";
 			break;
-        case UPSTAIRS:
+        case TileType::UPSTAIRS:
             info += "A creaky, old staircase going up.";
             break;
-        case DOWNSTAIRS:
+        case TileType::DOWNSTAIRS:
             info += "Creaky, old stairs going further down into the abyss.";
             break;
 		default:
@@ -136,13 +136,13 @@ void Level::generateLevel(Level* prevLevel)
             upStairs = new Coord(rand()%(rooms[i]->getHeight()-1)+rooms[i]->getY()+1,
                                     rand()%(rooms[i]->getWidth()-1)+rooms[i]->getX()+1);
 
-            layout[upStairs->getY()][upStairs->getX()]->setType(UPSTAIRS);
+            layout[upStairs->getY()][upStairs->getX()]->setType(TileType::UPSTAIRS);
 		}//if
         else if (i == stairsUpRoom)
         {
             upStairs = prevLevel->getDownStairsCoord();
 
-            layout[upStairs->getY()][upStairs->getX()]->setType(UPSTAIRS);
+            layout[upStairs->getY()][upStairs->getX()]->setType(TileType::UPSTAIRS);
         }//else if
 
         //Set Coord for stairs in stairsDownRoom
@@ -151,7 +151,7 @@ void Level::generateLevel(Level* prevLevel)
             downStairs = new Coord(rand()%(rooms[i]->getHeight()-1)+rooms[i]->getY()+1,
                                     rand()%(rooms[i]->getWidth()-1)+rooms[i]->getX()+1);
 
-            layout[downStairs->getY()][downStairs->getX()]->setType(DOWNSTAIRS);
+            layout[downStairs->getY()][downStairs->getX()]->setType(TileType::DOWNSTAIRS);
 		}//if*/
 
         //Add monsters and items to rooms
@@ -175,17 +175,17 @@ void Level::generateLevel(Level* prevLevel)
 		}//if*/
 	}//for
 
-	connectRooms(rooms[0], rooms[1], LEFT);
-	connectRooms(rooms[1], rooms[2], LEFT);
-	connectRooms(rooms[6], rooms[7], LEFT);
-	connectRooms(rooms[7], rooms[8], LEFT);
+	connectRooms(rooms[0], rooms[1], Direction::LEFT);
+	connectRooms(rooms[1], rooms[2], Direction::LEFT);
+	connectRooms(rooms[6], rooms[7], Direction::LEFT);
+	connectRooms(rooms[7], rooms[8], Direction::LEFT);
 
-	connectRooms(rooms[0], rooms[3], DOWN);
-	connectRooms(rooms[3], rooms[6], DOWN);
-	connectRooms(rooms[2], rooms[5], DOWN);
-	connectRooms(rooms[5], rooms[8], DOWN);
+	connectRooms(rooms[0], rooms[3], Direction::DOWN);
+	connectRooms(rooms[3], rooms[6], Direction::DOWN);
+	connectRooms(rooms[2], rooms[5], Direction::DOWN);
+	connectRooms(rooms[5], rooms[8], Direction::DOWN);
 
-	connectRooms(rooms[1], rooms[4], DOWN);
+	connectRooms(rooms[1], rooms[4], Direction::DOWN);
 }//generateLevel
 
 void Level::connectRooms(Room *room1, Room *room2, Direction dir)
@@ -193,7 +193,7 @@ void Level::connectRooms(Room *room1, Room *room2, Direction dir)
 	int i = 0;
 	int y1, y2, lowY, highY, x1, x2, lowX, highX, yDist, xDist;
 
-	if (dir == LEFT)
+	if (dir == Direction::LEFT)
 	{
 		y1 = rand()%(room1->getHeight()-1)+room1->getY()+1;
 		x1 = room1->getX()+room1->getWidth();
@@ -217,37 +217,37 @@ void Level::connectRooms(Room *room1, Room *room2, Direction dir)
 		for (i = 0; i <= xDist/2; i++)
 		{
             //updateTile(&level->layout[y1][x1+i], ':', ':', 1, -1, -1);
-            layout[y1][x1+i]->setType(CORRIDOR);
+            layout[y1][x1+i]->setType(TileType::CORRIDOR);
             layout[y1][x1+i]->setPassable(true);
 
-            layout[y2][x2-i]->setType(CORRIDOR);
+            layout[y2][x2-i]->setType(TileType::CORRIDOR);
             layout[y2][x2-i]->setPassable(true);
 		}//for
 		
 		if (yDist == 0)
 		{
-            layout[y1][x1+(xDist/2)+1]->setType(CORRIDOR);
+            layout[y1][x1+(xDist/2)+1]->setType(TileType::CORRIDOR);
             layout[y1][x1+(xDist/2)+1]->setPassable(true);
 
-            layout[y2][x2+(xDist/2)]->setType(CORRIDOR);
+            layout[y2][x2+(xDist/2)]->setType(TileType::CORRIDOR);
             layout[y2][x2+(xDist/2)]->setPassable(true);
 		}//if
 		else
 		{
-			layout[lowY][x1+(xDist/2)]->setType(CORRIDOR);
+			layout[lowY][x1+(xDist/2)]->setType(TileType::CORRIDOR);
 			layout[lowY][x1+(xDist/2)]->setPassable(true);
 
 			for (i = 1; i < yDist; i++)
 			{
-				layout[lowY+i][x1+(xDist/2)]->setType(CORRIDOR);
+				layout[lowY+i][x1+(xDist/2)]->setType(TileType::CORRIDOR);
 				layout[lowY+i][x1+(xDist/2)]->setPassable(true);
 			}//for
 
-			layout[highY][x1+(xDist/2)]->setType(CORRIDOR);
+			layout[highY][x1+(xDist/2)]->setType(TileType::CORRIDOR);
 			layout[highY][x1+(xDist/2)]->setPassable(true);
 		}//else
 	}//if
-	else if (dir == DOWN)
+	else if (dir == Direction::DOWN)
 	{
 		x1 = rand()%(room1->getWidth()-1)+room1->getX()+1;
 		y1 = room1->getY()+room1->getHeight();
@@ -270,33 +270,33 @@ void Level::connectRooms(Room *room1, Room *room2, Direction dir)
 
 		for (i = 0; i <= yDist/2; i++)
 		{
-			layout[y1+i][x1]->setType(CORRIDOR);
+			layout[y1+i][x1]->setType(TileType::CORRIDOR);
 			layout[y1+i][x1]->setPassable(true);
 
-			layout[y2-i][x2]->setType(CORRIDOR);
+			layout[y2-i][x2]->setType(TileType::CORRIDOR);
 			layout[y2-i][x2]->setPassable(true);
 		}//for
 		
 		if (xDist == 0)
 		{
-			layout[y1+(yDist/2)+1][x1]->setType(CORRIDOR);
+			layout[y1+(yDist/2)+1][x1]->setType(TileType::CORRIDOR);
 			layout[y1+(yDist/2)+1][x1]->setPassable(true);
 
-			layout[y2-(yDist/2)][x2]->setType(CORRIDOR);
+			layout[y2-(yDist/2)][x2]->setType(TileType::CORRIDOR);
 			layout[y2-(yDist/2)][x2]->setPassable(true);
 		}//if
 		else
 		{
-			layout[y1+(yDist/2)][lowX]->setType(CORRIDOR);
+			layout[y1+(yDist/2)][lowX]->setType(TileType::CORRIDOR);
 			layout[y1+(yDist/2)][lowX]->setPassable(true);
 
 			for (i = 1; i < xDist; i++)
 			{
-				layout[y1+(yDist/2)][lowX+i]->setType(CORRIDOR);
+				layout[y1+(yDist/2)][lowX+i]->setType(TileType::CORRIDOR);
 				layout[y1+(yDist/2)][lowX+i]->setPassable(true);
 			}//for
 
-			layout[y1+(yDist/2)][highX]->setType(CORRIDOR);
+			layout[y1+(yDist/2)][highX]->setType(TileType::CORRIDOR);
 			layout[y1+(yDist/2)][highX]->setPassable(true);
 		}
 	}//else if
@@ -311,20 +311,20 @@ void Level::makeRoom(int y, int x, int width, int height)
 		for (j = 0; j <= width; j++)
         {
             if (i == 0 && j == 0)
-			    layout[y+i][x+j]->setType(ULCORNER);
+			    layout[y+i][x+j]->setType(TileType::ULCORNER);
             else if (i == 0 && j == width)
-			    layout[y+i][x+j]->setType(URCORNER);
+			    layout[y+i][x+j]->setType(TileType::URCORNER);
             else if (i == height && j == 0)
-			    layout[y+i][x+j]->setType(LLCORNER);
+			    layout[y+i][x+j]->setType(TileType::LLCORNER);
             else if (i == height && j == width)
-			    layout[y+i][x+j]->setType(LRCORNER);
+			    layout[y+i][x+j]->setType(TileType::LRCORNER);
             else if (i == 0 || i == height)
-			    layout[y+i][x+j]->setType(HWALL);
+			    layout[y+i][x+j]->setType(TileType::HWALL);
             else if (j == 0 || j == width)
-			    layout[y+i][x+j]->setType(VWALL);
+			    layout[y+i][x+j]->setType(TileType::VWALL);
             else
             {
-			    layout[y+i][x+j]->setType(FLOOR);
+			    layout[y+i][x+j]->setType(TileType::FLOOR);
 			    layout[y+i][x+j]->setPassable(true);
             }//else
         }//for

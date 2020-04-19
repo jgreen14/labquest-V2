@@ -47,25 +47,25 @@ void IO::showLevel(Level* level)
 			{
 				switch(level->getType(j, i))
 				{
-					case VWALL:
-					case HWALL:
-					case ULCORNER:
-					case URCORNER:
-					case LLCORNER:
-					case LRCORNER:
-					case CORRIDOR:
+					case TileType::VWALL:
+					case TileType::HWALL:
+					case TileType::ULCORNER:
+					case TileType::URCORNER:
+					case TileType::LLCORNER:
+					case TileType::LRCORNER:
+					case TileType::CORRIDOR:
 						TCODConsole::root->putChar(pos->getX(),pos->getY(), '#');
 						break;
-					case FLOOR:
+					case TileType::FLOOR:
 						TCODConsole::root->putChar(pos->getX(),pos->getY(),'.');
 						break;
-					case WATER:
+					case TileType::WATER:
 						TCODConsole::root->putChar(pos->getX(),pos->getY(),'~');
 						break;
-                    case UPSTAIRS:
+                    case TileType::UPSTAIRS:
 						TCODConsole::root->putChar(pos->getX(),pos->getY(),'<');
 						break;
-                    case DOWNSTAIRS:
+                    case TileType::DOWNSTAIRS:
 						TCODConsole::root->putChar(pos->getX(),pos->getY(),'>');
 						break;
 					default:
@@ -312,7 +312,7 @@ void IO::fastMove(Player* player, Level* level)
 
 GameState IO::processInput(Player* player, Level* level)
 {
-	GameState state = WAIT;
+	GameState state = GameState::WAIT;
 
 	this->banner = "";
 
@@ -327,13 +327,13 @@ GameState IO::processInput(Player* player, Level* level)
 		case 'b':
 		case 'n':
 			player->move(changeCoord(), level, &this->banner);
-			state = MOVE;
+			state = GameState::MOVE;
 			break;
 		case 'x':
-			state = NEXTLEVEL;
+			state = GameState::NEXTLEVEL;
 			break;
 		case 'z':
-			state = PREVLEVEL;
+			state = GameState::PREVLEVEL;
 			break;
 		/*case 'H':
 		case 'J':
@@ -348,7 +348,7 @@ GameState IO::processInput(Player* player, Level* level)
 		case ',':
 			if (player->addItem(level->itemPickup(player->getPosition())))
 				this->banner = "Picked up " + player->getItem(player->getItemCount()-1)->getName() + ".";
-			state = PICKUP;
+			state = GameState::PICKUP;
 			break;
 		/*case 'd':
 			showDropScreen(player, level);

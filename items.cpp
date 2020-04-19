@@ -8,7 +8,7 @@ Item::Item()
 	this->symbol = 0;
 	this->baseName = "";
 	this->name = "";
-	this->type = UNDEFINED;
+	this->type = ItemType::UNDEFINED;
 	this->desc = "";
 	this->ID = "ZZZ";
 
@@ -205,7 +205,7 @@ string MouseTrap::activate()
 
 string MouseTrap::combine(Item* item, bool* combined)
 {
-	if (item->getType() == FOOD)
+	if (item->getType() == ItemType::FOOD)
 	{
 		*combined = true;
 		this->baited = true;

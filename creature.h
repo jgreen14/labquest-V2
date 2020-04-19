@@ -10,8 +10,8 @@ class Creature : public Agent
 {
 	private:
 		bool hostile;
-		int direction;
-		int type;
+		Direction direction;
+		CreatureType type;
 
 	public:
 		Creature();
@@ -22,7 +22,7 @@ class Creature : public Agent
 
 		bool getHostile();
 		void setHostile(bool);
-		bool getType();
+		CreatureType getType();
 		void setType(CreatureType);
 };//Creature class
 

@@ -16,16 +16,16 @@ using namespace std;
 
 int populateItems(List* items)
 {
-	items->push(new Hammer("Hammer", ')', WEAPON, "A regular wood handled hammer.", "WH1"));
-	items->push(new Item("Table", '^', FURNITURE, "A rectangular work table.", "WT1"));
-	items->push(new Item("Scrawled Note", '?', NOTE, "'...I have nearly completed my latest experiments... but I keep running into problems...'", "SN1"));
-	items->push(new Item("Dusty Book", '+', BOOK, "'Chapter 1 - The most important part to remember when building traps is that placement is everything.'", "DB1"));
-	items->push(new Item("Beaker", 'v', CONTAINER, "An ordinary glass beaker.", "GB1"));
-	items->push(new MouseTrap("Mousetrap", 'T', TRAP, "A trap suitable for catching regular sized mice.", "MT1"));
-	items->push(new Item("Motion Sensor", '*', DETECTOR, "Can sense even very minute motions in a sizeable radius around the user.", "MS1"));
-	items->push(new Item("Microscope", '!', EQUIPMENT, "Up to 100X zoom! Very handy for examining the cellular or crystalline structure of various substances.", "EM1"));
-	items->push(new Item("Cheese", '%', FOOD, "Delicious cheese!", "FC1"));
-	items->push(new Item("Apple", '%', FOOD, "A shiny, red apple.", "FA1"));
+	items->push(new Hammer("Hammer", ')', ItemType::WEAPON, "A regular wood handled hammer.", "WH1"));
+	items->push(new Item("Table", '^', ItemType::FURNITURE, "A rectangular work table.", "WT1"));
+	items->push(new Item("Scrawled Note", '?', ItemType::NOTE, "'...I have nearly completed my latest experiments... but I keep running into problems...'", "SN1"));
+	items->push(new Item("Dusty Book", '+', ItemType::BOOK, "'Chapter 1 - The most important part to remember when building traps is that placement is everything.'", "DB1"));
+	items->push(new Item("Beaker", 'v', ItemType::CONTAINER, "An ordinary glass beaker.", "GB1"));
+	items->push(new MouseTrap("Mousetrap", 'T', ItemType::TRAP, "A trap suitable for catching regular sized mice.", "MT1"));
+	items->push(new Item("Motion Sensor", '*', ItemType::DETECTOR, "Can sense even very minute motions in a sizeable radius around the user.", "MS1"));
+	items->push(new Item("Microscope", '!', ItemType::EQUIPMENT, "Up to 100X zoom! Very handy for examining the cellular or crystalline structure of various substances.", "EM1"));
+	items->push(new Item("Cheese", '%', ItemType::FOOD, "Delicious cheese!", "FC1"));
+	items->push(new Item("Apple", '%', ItemType::FOOD, "A shiny, red apple.", "FA1"));
 
 	return items->getCount();
 }//populateItems
@@ -40,7 +40,7 @@ int main()
 	Creature* creature;
 	Level* currLevel = (Level*)allLevels->getHead();
 	Level* prevLevel = NULL;
-	GameState currState = WAIT;
+	GameState currState = GameState::WAIT;
 
 	srand(time(NULL));
 
@@ -54,7 +54,7 @@ int main()
 		
 		// Add test creature and item to each level
 		// **Should have populateItems and populateCreatures functions
-		creature = new Creature(1, 1, 1, "Rat", new Coord(1, 20), 'r', RODENT);
+		creature = new Creature(1, 1, 1, "Rat", new Coord(1, 20), 'r', CreatureType::RODENT);
 		currLevel->addCreature(creature);
 		currLevel->addItem(new Coord(2, 25), ((Item*)allItems->getPosition(2))->itemFactory());
 		
@@ -89,7 +89,7 @@ int main()
 		switch (currState) 
 		{
 			// **Should have a changeLevel method that does more checks and setup
-			case NEXTLEVEL:
+			case GameState::NEXTLEVEL:
 				if (currLevel->getDownStairsCoord()->equal(player->getPosition()) && currLevel->getNext() != NULL)
 				{
 					prevLevel = currLevel;
@@ -97,7 +97,7 @@ int main()
 					player->updateLOS(currLevel, false);
 				} // if
 				break;
-			case PREVLEVEL:
+			case GameState::PREVLEVEL:
 				if (currLevel->getUpStairsCoord()->equal(player->getPosition()) && prevLevel != NULL)
 				{
 					// **Could have a list of visited levels to make this easier

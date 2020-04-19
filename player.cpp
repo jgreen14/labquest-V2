@@ -127,7 +127,7 @@ void Player::updateLOS(Level* level, bool reset)
 					newX = position->getX() - j;
 				}//else if
 
-				if (level->inBounds(newY, newX) && level->getType(newY, newX) != BEDROCK)
+				if (level->inBounds(newY, newX) && level->getType(newY, newX) != TileType::BEDROCK)
 				{
 					if (reset)
 						level->notVisible(newY, newX);
@@ -136,12 +136,13 @@ void Player::updateLOS(Level* level, bool reset)
 						level->map(newY, newX);
 						level->visible(newY, newX);
 
-						if (level->getType(newY, newX) == VWALL || level->getType(newY, newX) == HWALL)
+						if (level->getType(newY, newX) == TileType::VWALL 
+								|| level->getType(newY, newX) == TileType::HWALL)
 							j = 9999;
 
-						if (quarter%2 == 0 && level->getType(newY, newX) == VWALL)
+						if (quarter%2 == 0 && level->getType(newY, newX) == TileType::VWALL)
 							i = 9999;
-						else if (quarter%2 == 1 && level->getType(newY, newX) == HWALL)
+						else if (quarter%2 == 1 && level->getType(newY, newX) == TileType::HWALL)
 							i = 9999;
 					}//else
 				}//if

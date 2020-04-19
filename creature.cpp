@@ -7,21 +7,21 @@
 Creature::Creature() : Agent()
 {
 	hostile = true;
-	direction = STOPPED;
-	type = UNKNOWN;
+	direction = Direction::STOPPED;
+	type = CreatureType::UNKNOWN;
 }//Creature
 
 Creature::Creature(int str, int dex, int per, string name, Coord* position, char symbol) : Agent(str, dex, per, name, position, symbol)
 {
 	hostile = true;
-	direction = STOPPED;
-	type = UNKNOWN;
+	direction = Direction::STOPPED;
+	type = CreatureType::UNKNOWN;
 }//Creature
 
 Creature::Creature(int str, int dex, int per, string name, Coord* position, char symbol, CreatureType type) : Agent(str, dex, per, name, position, symbol)
 {
 	hostile = true;
-	direction = STOPPED;
+	direction = Direction::STOPPED;
 	this->type = type;
 }//Creature
 
@@ -31,23 +31,23 @@ bool Creature::move(Level* level)
 	int x = 0, y = 0;
 	MouseTrap* trap;
 
-	if (direction == STOPPED || rand()%8 == 0)
+	if (direction == Direction::STOPPED || rand()%8 == 0)
 	{
-		direction = rand()%4;
+		direction = static_cast<Direction>(rand()%4);
 	}//if
 
 	switch (direction)
 	{
-		case UP:
+		case Direction::UP:
 			y = -1;
 			break;
-		case DOWN:
+		case Direction::DOWN:
 			y = 1;
 			break;
-		case LEFT:
+		case Direction::LEFT:
 			x = -1;
 			break;
-		case RIGHT:
+		case Direction::RIGHT:
 			x = 1;
 			break;
 		default:
@@ -60,7 +60,7 @@ bool Creature::move(Level* level)
 		level->removeCreature(this);
 		position->setYX(position->getY()+y, position->getX()+x);	
 		level->addCreature(this);
-		if (level->getItem(position->getY(), position->getX()) != NULL && level->getItem(position->getY(), position->getX())->getType() == TRAP)
+		if (level->getItem(position->getY(), position->getX()) != NULL && level->getItem(position->getY(), position->getX())->getType() == ItemType::TRAP)
 		{
 			trap = (MouseTrap*)level->getItem(position->getY(), position->getX());
 			trap->spring(this, level);
@@ -80,7 +80,7 @@ void Creature::setHostile(bool hostile)
 	this->hostile = hostile;
 }//setHostile
 
-bool Creature::getType()
+CreatureType Creature::getType()
 {
 	return type;
 }//getType
