@@ -1,5 +1,6 @@
 #include <iostream>
 #include <time.h>
+#include <assert.h>
 
 #include "labquest.h"
 #include "list.h"
@@ -10,6 +11,9 @@
 #include "level.h"
 #include "player.h"
 #include "creature.h"
+
+constexpr int itemCount{ 2 };
+const string playerName{ "Jeff" };
 
 using namespace std;
 
@@ -35,12 +39,14 @@ int main()
 	//level->generateLab(allItems, itemCount);
 	level0->generateLevel(NULL);
 	level1->generateLevel(level0);
-	Player* player = new Player(1, 1, 1, "Jeff", level0->getUpStairsCoord(), '@', "Novice");
+	Player* player = new Player(1, 1, 1, playerName, level0->getUpStairsCoord(), '@', "Novice");
 	//level->addCreature(creature);
 	player->addItem(((Item*)allItems->getPosition(0))->itemFactory());
 
-	cout << "Player name: " << player->getName() << endl;
-	cout << "Item count: " << allItems->getCount() << endl;
+	assert(player->getName() == playerName && "Player name not set correctly");
+	assert(allItems->getCount() == itemCount && "Incorrect number of items");
+
+	cout << "All tests passed!" << endl;
 
 	return 0;
 } // main
