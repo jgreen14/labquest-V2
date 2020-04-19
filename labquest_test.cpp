@@ -15,8 +15,8 @@ using namespace std;
 
 int populateItems(List* items)
 {
-	items->push(new Hammer("TestWeapon1", ')', WEAPON, "A test weapon.", "TW1"));
-	items->push(new Item("TestFurniture1", '^', FURNITURE, "A test piece of furniture.", "TF1"));
+	items->push(new Hammer("TestWeapon1", ')', ItemType::WEAPON, "A test weapon.", "TW1"));
+	items->push(new Item("TestFurniture1", '^', ItemType::FURNITURE, "A test piece of furniture.", "TF1"));
 	return items->getCount();
 }//populateItems
 
@@ -25,7 +25,7 @@ int main()
 	int itemCount = 0;
 	List* allItems = new List();
 	//Player* player = new Player(1, 1, 1, "Jeff", new Coord(0, 0), '@', "Novice");
-	Creature* creature = new Creature(1, 1, 1, "Rat", new Coord(1, 20), 'r', RODENT);
+	Creature* creature = new Creature(1, 1, 1, "Rat", new Coord(1, 20), 'r', CreatureType::RODENT);
 	Level* level0 = new Level(0);
 	Level* level1 = new Level(1);
 
